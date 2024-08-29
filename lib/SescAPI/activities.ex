@@ -33,19 +33,22 @@ defmodule SescAPI.Activities do
   @doc """
   Fetch activities from sesc
   """
-  def filter do
+  def filter(opts \\ [ppp: 10]) do
+    opts =
+      [
+        data_inicial: "",
+        data_final: "",
+        local: "",
+        categoria: "",
+        ppp: 10,
+        page: 1,
+        tipo: "atividade"
+      ] ++ opts
+
     %Req.Response{status: 200, body: %{"atividade" => activities}} =
       [
         url: "#{@prefix}/atividades/filter",
-        params: [
-          data_inicial: "",
-          data_final: "",
-          local: "",
-          categoria: "",
-          ppp: 10,
-          page: 1,
-          tipo: "atividade"
-        ]
+        params: opts
       ]
       |> req_config(:activities_filter)
       |> Req.request!()

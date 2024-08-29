@@ -4,14 +4,14 @@ defmodule ActivitiesTest do
   use ExUnit.Case, async: true
   doctest SescAPI.Activities
 
-  setup do
-    Req.Test.stub(:activities_filter, fn conn ->
-      {activities, _} = Code.eval_file("test/fixtures/activities.exs")
-      Req.Test.json(conn, activities)
-    end)
-  end
+  describe "filter()" do
+    setup do
+      Req.Test.stub(:activities_filter, fn conn ->
+        {activities, _} = Code.eval_file("test/fixtures/activities.exs")
+        Req.Test.json(conn, activities)
+      end)
+    end
 
-  describe "filter" do
     test "requests are stubbed" do
       activities = Activities.filter()
       assert [%SescAPI.Activities.Activity{:id => 738_507} | _] = activities
@@ -21,6 +21,26 @@ defmodule ActivitiesTest do
       activities = Activities.filter()
       assert [activity | _] = activities
       assert %Activities.Activity{} = activity
+    end
+  end
+
+  describe "filter(opts)" do
+    setup do
+      Req.Test.stub(:activities_filter, fn conn ->
+        send(self(), {:req_params, conn.params})
+        {activities, _} = Code.eval_file("test/fixtures/activities.exs")
+        Req.Test.json(conn, activities)
+      end)
+    end
+
+    test "Returns a list of %Activity with specific :categoria" do
+      _activities = Activities.filter(categoria: "musica-show")
+      assert_received({:req_params, %{"categoria" => "musica-show"}})
+    end
+
+    test "Returns a list of %Activity with specific ppp and page" do
+      _activities = Activities.filter(ppp: 100, page: 10)
+      assert_received({:req_params, %{"ppp" => "100", "page" => "10"}})
     end
   end
 end
