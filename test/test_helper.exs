@@ -7,4 +7,4 @@ defimpl Jason.Encoder, for: [Tuple] do
   end
 end
 
-ExUnit.start()
+ExUnit.start(timeout: 10000)

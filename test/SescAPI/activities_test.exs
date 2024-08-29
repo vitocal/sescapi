@@ -1,7 +1,7 @@
-defmodule SescapiTest do
+defmodule ActivitiesTest do
   alias SescAPI.Activities
 
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest SescAPI.Activities
 
   setup do
