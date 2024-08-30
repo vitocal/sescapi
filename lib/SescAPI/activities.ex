@@ -6,7 +6,6 @@ defmodule SescAPI.Activities do
 
   @fqdn "https://www.sescsp.org.br/"
   @prefix "wp-json/wp/v1"
-  # @base_url "#{@fqdn}/#{@prefix}"
 
   defmodule Activity do
     defstruct [
@@ -33,13 +32,14 @@ defmodule SescAPI.Activities do
   @doc """
   Fetch activities from sesc
   """
-  def filter(opts \\ [ppp: 10]) do
+  def filter(opts \\ []) do
     opts =
       [
         data_inicial: "",
         data_final: "",
         local: "",
         categoria: "",
+        source: "null",
         ppp: 10,
         page: 1,
         tipo: "atividade"
@@ -53,7 +53,7 @@ defmodule SescAPI.Activities do
       |> req_config(:activities_filter)
       |> Req.request!()
 
-    activities |> to_struct(%Activity{})
+    activities |> map_as_struct(%Activity{})
   end
 
   defp map_to_atomized_keys!(map) do
@@ -61,9 +61,10 @@ defmodule SescAPI.Activities do
   end
 
   @doc """
-  Convert a map to a struct, translating the string keys into atoms
+  Convert a list of maps into a list of struct's.
+  The map string keys are converted to :atoms
   """
-  def to_struct(map, target_struct) do
+  def map_as_struct(map, target_struct) do
     map
     |> map_to_atomized_keys!()
     |> Enum.map(&struct(target_struct, &1))

@@ -1,0 +1,23 @@
+# SescAPI notebook
+
+```elixir
+import IEx.Helpers
+import Kino
+import Kino.Shorts
+import ExUtils.Map
+```
+
+## Activity listing
+
+```elixir
+import SescAPI.Activities
+alias SescAPI.Activities
+
+# {%{"atividade" => activities}, _} = Code.eval_file("test/fixtures/activities.exs")
+Activities.filter(categoria: "musica-show", ppp: 1000)
+|> Enum.slice(0, 10)
+```
+
+```elixir
+System.schedulers_online()
+```
