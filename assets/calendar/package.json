@@ -4,7 +4,9 @@
   "description": "Calendar-like interface",
   "main": "index.jsx",
   "scripts": {
-    "build": "esbuild index.jsx --bundle --outfile=../lib/assets/calendar/main.js",
+    "dev": "esbuild index.jsx --bundle --format=esm --outfile=../../lib/assets/calendar/build/main.js --watch",
+    "build": "esbuild index.jsx --bundle --format=esm --outfile=../../lib/assets/calendar/build/main.js",
+    "copy_assets": "cp node_modules/react-big-calendar/lib/css/react-big-calendar.css ../../lib/assets/calendar/build/react-big-calendar.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,7 +15,9 @@
     "esbuild": "0.23.1"
   },
   "dependencies": {
+    "date-fns": "^3.6.0",
     "react": "^18.3.1",
+    "react-big-calendar": "^1.13.4",
     "react-dom": "^18.3.1"
   }
 }

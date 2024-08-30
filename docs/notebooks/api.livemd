@@ -10,21 +10,33 @@ import ExUtils.Map
 ## Activity listing
 
 ```elixir
+recompile()
 import SescAPI.Activities
 alias SescAPI.Activities
 
 # {%{"atividade" => activities}, _} = Code.eval_file("test/fixtures/activities.exs")
-Activities.filter(categoria: "musica-show", ppp: 1000)
-|> Enum.slice(0, 10)
+activities = Activities.filter(categoria: "musica-show", ppp: 1000)
+```
+
+We must transform the data into a list of events, to be processed by the calendar component below.
+
+```elixir
+defmodule CalendarEvents do
+  def event(activity) do
+    %{
+      id: activity.id,
+      title: activity.titulo,
+      start: activity.dataProxSessao,
+      end: activity.dataProxSessao
+    }
+  end
+end
+
+events = Enum.map(activities, &CalendarEvents.event/1)
+tree(events)
 ```
 
 ```elixir
-Kino.Mermaid.new("""
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
-  1-->A;
-""")
+recompile()
+Assets.Calendar.new(events)
 ```

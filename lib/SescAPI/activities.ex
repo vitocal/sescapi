@@ -8,6 +8,7 @@ defmodule SescAPI.Activities do
   @prefix "wp-json/wp/v1"
 
   defmodule Activity do
+    # @enforce_keys [:id, :link, :titulo]
     defstruct [
       :id,
       :link,
@@ -27,6 +28,12 @@ defmodule SescAPI.Activities do
       dataPrimeiraSessao: nil,
       dataUltimaSessao: nil
     ]
+
+    def new(attrs) do
+      activity = struct(%Activity{}, attrs)
+      {:ok, dataProxSessao, _} = DateTime.from_iso8601("#{activity.dataProxSessao}:00Z")
+      Map.put(activity, :dataProxSessao, dataProxSessao)
+    end
   end
 
   @doc """
@@ -53,21 +60,13 @@ defmodule SescAPI.Activities do
       |> req_config(:activities_filter)
       |> Req.request!()
 
-    activities |> map_as_struct(%Activity{})
+    activities
+    |> map_to_atomized_keys!()
+    |> Enum.map(&Activity.new/1)
   end
 
   defp map_to_atomized_keys!(map) do
     Jason.encode!(map) |> Jason.decode!(keys: :atoms)
-  end
-
-  @doc """
-  Convert a list of maps into a list of struct's.
-  The map string keys are converted to :atoms
-  """
-  def map_as_struct(map, target_struct) do
-    map
-    |> map_to_atomized_keys!()
-    |> Enum.map(&struct(target_struct, &1))
   end
 
   defp req_config(req, req_atom) do
