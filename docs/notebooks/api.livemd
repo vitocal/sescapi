@@ -21,11 +21,15 @@ activities = Activities.filter(categoria: "musica-show", ppp: 1000)
 We must transform the data into a list of events, to be processed by the calendar component below.
 
 ```elixir
+recompile()
+
 defmodule CalendarEvents do
   def event(activity) do
     %{
       id: activity.id,
       title: activity.titulo,
+      desc: activity.complemento,
+      unit: hd(activity.unidade)[:name],
       start: activity.dataProxSessao,
       end: activity.dataProxSessao
     }

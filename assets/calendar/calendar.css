@@ -1,0 +1,11 @@
+.event {
+    display: flex;
+    width: auto;
+}
+.unit-tag {
+    margin-left: auto;
+}
+
+.unit-tag[unit="pompeia"] {
+    color: red;
+}

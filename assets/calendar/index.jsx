@@ -1,18 +1,17 @@
 import * as React from 'react'
-import * as Server from 'react-dom/client'
+import * as DOM from 'react-dom/client'
 
 import { MyCalendar } from './calendar'
 
 export function init(ctx, data) {
-    const root = Server.createRoot(ctx.root)
+    ctx.importCSS("./main.css")
 
-    ctx.importCSS("./react-big-calendar.css")
     const events = data.map(activity => ({
         ...activity,
         start: new Date(activity.start),
         end: new Date(activity.end),
     }))
 
+    const root = DOM.createRoot(ctx.root)
     root.render(<MyCalendar events={events} />)
-
 }

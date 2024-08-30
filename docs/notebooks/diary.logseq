@@ -1,3 +1,7 @@
+2024-08-30
+    Hoje implementei a interface de calendário diretamente no livebook.
+    Funcionou muito bem componentes react com livebook.
+
 2024-08-29
     Iniciei o projeto, que mostra os musica-shows do sesc numa
     interface de calendário (mes a mes), melhor de ser navegada e com
