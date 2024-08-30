@@ -19,5 +19,12 @@ Activities.filter(categoria: "musica-show", ppp: 1000)
 ```
 
 ```elixir
-System.schedulers_online()
+Kino.Mermaid.new("""
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+  1-->A;
+""")
 ```

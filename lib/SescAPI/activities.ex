@@ -1,6 +1,6 @@
 defmodule SescAPI.Activities do
   @moduledoc """
-  API module to consume services of brazil `sesc` units.
+  API module to search `sesc` shows, events and activities.
   """
   require Req
 
