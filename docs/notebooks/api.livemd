@@ -1,17 +1,28 @@
+<!-- livebook:{"app_settings":{"auto_shutdown_ms":3600000,"show_source":true,"slug":"sescapi"}} -->
+
 # SescAPI notebook
+
+```elixir
+Mix.install([
+      {:ex_utils, "~> 0.1.7"},
+      {:plug, "~> 1.0"},
+      {:req, "~> 0.5.0"},
+      {:kino, "~> 0.12.0"},
+      {:sescapi, path: "/Users/vitorcalejuri/Projects/sescapi"}
+])
+```
+
+## Activity listing
+
+First lets fetch all activities from Sesc using `SescAPI.Activities`
 
 ```elixir
 import IEx.Helpers
 import Kino
 import Kino.Shorts
-import ExUtils.Map
-```
-
-## Activity listing
-
-```elixir
 recompile()
-import SescAPI.Activities
+
+  import SescAPI.Activities
 alias SescAPI.Activities
 
 # {%{"atividade" => activities}, _} = Code.eval_file("test/fixtures/activities.exs")
@@ -40,7 +51,11 @@ events = Enum.map(activities, &CalendarEvents.event/1)
 tree(events)
 ```
 
+## Calendar
+
 ```elixir
 recompile()
 Assets.Calendar.new(events)
 ```
+
+<!-- livebook:{"offset":1244,"stamp":{"token":"XCP.L0Lhhcn48INAbPFTt9LpKL-9HpkPaWCe07d05u_Nzro-EilyWtIjLkRsHLbungn00MInbin7edzyeMW-RNoJSJJKG6rGuMDDXpyrSKsMLNJRN-V9oDgfiXRu","version":2}} -->

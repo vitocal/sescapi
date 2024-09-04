@@ -1,0 +1,19 @@
+services:
+  sescapi:
+    build:
+      dockerfile: ./Dockerfile
+    env_file: ".prod.env"
+    ports:
+      - '4000:4000'
+    working_dir: /app
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://loki:loki@localhost:3100/loki/api/v1/push'
+    volumes:
+      - ./config:/app/config:ro
+      - ./lib:/app/lib:ro
+      - ./priv:/app/priv:ro
+      - ./mix.exs:/app/mix.exs:ro
+      - ./mix.lock:/app/mix.lock:rw
+
