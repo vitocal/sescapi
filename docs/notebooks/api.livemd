@@ -3,13 +3,18 @@
 # SescAPI notebook
 
 ```elixir
-Mix.install([
-      {:ex_utils, "~> 0.1.7"},
-      {:plug, "~> 1.0"},
-      {:req, "~> 0.5.0"},
-      {:kino, "~> 0.12.0"},
-      {:sescapi, path: "/Users/vitorcalejuri/Projects/sescapi"}
-])
+# Mix.install([
+#       {:ex_utils, "~> 0.1.7"},
+#       {:plug, "~> 1.0"},
+#       {:req, "~> 0.5.0"},
+#       {:kino, "~> 0.12.0"},
+#       {:sescapi, path: "/Users/vitorcalejuri/Projects/sescapi"}
+# ])
+
+import IEx.Helpers
+import Kino
+import Kino.Shorts
+recompile()
 ```
 
 ## Activity listing
@@ -17,22 +22,20 @@ Mix.install([
 First lets fetch all activities from Sesc using `SescAPI.Activities`
 
 ```elixir
-import IEx.Helpers
-import Kino
-import Kino.Shorts
-recompile()
-
-  import SescAPI.Activities
-alias SescAPI.Activities
+import SescAPI.Activities
 
 # {%{"atividade" => activities}, _} = Code.eval_file("test/fixtures/activities.exs")
-activities = Activities.filter(categoria: "musica-show", ppp: 1000)
+activities = SescAPI.Activities.filter(categoria: "musica-show", ppp: 1000)
+#File.write("/Users/vitorcalejuri/Projects/sescapi/test/fixtures/musica-show.json",Jason.encode!(activities))
+```
+
+```elixir
+Enum.filter(activities, fn act -> String.match?(act.titulo, ~r/Hermeto/) end )
 ```
 
 We must transform the data into a list of events, to be processed by the calendar component below.
 
 ```elixir
-recompile()
 
 defmodule CalendarEvents do
   def event(activity) do
@@ -41,8 +44,8 @@ defmodule CalendarEvents do
       title: activity.titulo,
       desc: activity.complemento,
       unit: hd(activity.unidade)[:name],
-      start: activity.dataProxSessao,
-      end: activity.dataProxSessao
+      start: activity.dataPrimeiraSessao,
+      end: activity.dataUltimaSessao
     }
   end
 end
@@ -54,8 +57,28 @@ tree(events)
 ## Calendar
 
 ```elixir
+import IEx.Helpers
+
 recompile()
 Assets.Calendar.new(events)
 ```
 
-<!-- livebook:{"offset":1244,"stamp":{"token":"XCP.L0Lhhcn48INAbPFTt9LpKL-9HpkPaWCe07d05u_Nzro-EilyWtIjLkRsHLbungn00MInbin7edzyeMW-RNoJSJJKG6rGuMDDXpyrSKsMLNJRN-V9oDgfiXRu","version":2}} -->
+<!-- livebook:{"branch_parent_index":1} -->
+
+## Misc
+
+```elixir
+import ICalendar.Event
+ev = [%ICalendar.Event{        summary: "Film with Amy and Adam",
+        dtstart: Timex.to_datetime({{2015, 12, 24}, {8, 30, 00}}),
+        dtend:   Timex.to_datetime({{2015, 12, 24}, {8, 45, 00}}),
+        description: "Let's go see Star Wars."}]
+
+ev |> ICalendar.to_ics()
+```
+
+```elixir
+tree(activities)
+```
+
+<!-- livebook:{"offset":1856,"stamp":{"token":"XCP.Xi_wcWVluVWJrEbKkoeUcE8aW4O4rszcq8YN0hT10VB-vuuNaV2oQq-PshuRG3nS7G9G4LHxo41vGblHE6clff91rj1kgDJXkxqgtc0DLZ7I_Rs9b8B3IFAS","version":2}} -->

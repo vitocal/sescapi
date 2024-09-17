@@ -4,11 +4,12 @@ defmodule SescAPI.Activities do
   """
   require Req
 
-  @fqdn "https://www.sescsp.org.br/"
-  @prefix "wp-json/wp/v1"
+  @fqdn "https://www.sescsp.org.br"
+  @prefix "/wp-json/wp/v1"
 
   defmodule Activity do
     # @enforce_keys [:id, :link, :titulo]
+    @derive Jason.Encoder
     defstruct [
       :id,
       :link,
@@ -32,13 +33,25 @@ defmodule SescAPI.Activities do
     def new(attrs) do
       activity = struct(%Activity{}, attrs)
       {:ok, dataProxSessao, _} = DateTime.from_iso8601("#{activity.dataProxSessao}:00Z")
-      Map.put(activity, :dataProxSessao, dataProxSessao)
+      {:ok, dataPrimeiraSessao, _} = DateTime.from_iso8601("#{activity.dataPrimeiraSessao}:00Z")
+      {:ok, dataUltimaSessao, _} = DateTime.from_iso8601("#{activity.dataUltimaSessao}:00Z")
+
+      Map.merge(activity, %{
+        dataProxSessao: dataProxSessao,
+        dataPrimeiraSessao: dataPrimeiraSessao,
+        dataUltimaSessao: dataUltimaSessao
+      })
     end
+  end
+
+  def fqdn do
+    @fqdn
   end
 
   @doc """
   Fetch activities from sesc
   """
+  @spec filter(any()) :: list(%Activity{})
   def filter(opts \\ []) do
     opts =
       [
