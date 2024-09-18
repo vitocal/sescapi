@@ -32,15 +32,20 @@ defmodule SescAPI.Activities do
 
     def new(attrs) do
       activity = struct(%Activity{}, attrs)
-      {:ok, dataProxSessao, _} = DateTime.from_iso8601("#{activity.dataProxSessao}:00Z")
-      {:ok, dataPrimeiraSessao, _} = DateTime.from_iso8601("#{activity.dataPrimeiraSessao}:00Z")
-      {:ok, dataUltimaSessao, _} = DateTime.from_iso8601("#{activity.dataUltimaSessao}:00Z")
+
+      {:ok, dataProxSessao, _} = from_iso8061(activity.dataProxSessao)
+      {:ok, dataPrimeiraSessao, _} = from_iso8061(activity.dataPrimeiraSessao)
+      {:ok, dataUltimaSessao, _} = from_iso8061(activity.dataUltimaSessao)
 
       Map.merge(activity, %{
         dataProxSessao: dataProxSessao,
         dataPrimeiraSessao: dataPrimeiraSessao,
         dataUltimaSessao: dataUltimaSessao
       })
+    end
+
+    defp from_iso8061(date_str) do
+      DateTime.from_iso8601("#{date_str}:00-03:00")
     end
   end
 
