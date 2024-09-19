@@ -83,6 +83,17 @@ defmodule SescAPI.Activities do
     |> Enum.map(&Activity.new/1)
   end
 
+  @doc """
+  Get the activity that matches id
+  returns nil if id not found
+  """
+  def get(id) do
+    activities = filter(categoria: "musica-show", ppp: 1000)
+    activities |> Enum.find(fn el -> el.id == id end)
+  end
+
+  ##########################################
+
   defp map_to_atomized_keys!(map) do
     Jason.encode!(map) |> Jason.decode!(keys: :atoms)
   end

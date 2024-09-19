@@ -1,4 +1,5 @@
 defmodule ActivitiesTest do
+  alias SescAPI.Activities.Activity
   alias SescAPI.Activities
 
   use ExUnit.Case, async: true
@@ -41,6 +42,27 @@ defmodule ActivitiesTest do
     test "Returns a list of %Activity with specific ppp and page" do
       _activities = Activities.filter(ppp: 100, page: 10)
       assert_received({:req_params, %{"ppp" => "100", "page" => "10"}})
+    end
+  end
+
+  describe "get(id)" do
+    setup do
+      Req.Test.stub(:activities_filter, fn conn ->
+        {:ok, json_data} =
+          File.read("/Users/vitorcalejuri/Projects/sescapi/test/fixtures/musica-show.json")
+
+        {:ok, activities} = Jason.decode(json_data)
+
+        Req.Test.json(conn, %{"atividade" => activities})
+      end)
+    end
+
+    test "Returns the %Activity that matches id" do
+      assert %Activity{:id => 731_105} = Activities.get(731_105)
+    end
+
+    test "Returns nil otherwise" do
+      assert nil == Activities.get(-1)
     end
   end
 end
