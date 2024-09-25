@@ -81,4 +81,4 @@ ev |> ICalendar.to_ics()
 tree(activities)
 ```
 
-<!-- livebook:{"offset":1856,"stamp":{"token":"XCP.Xi_wcWVluVWJrEbKkoeUcE8aW4O4rszcq8YN0hT10VB-vuuNaV2oQq-PshuRG3nS7G9G4LHxo41vGblHE6clff91rj1kgDJXkxqgtc0DLZ7I_Rs9b8B3IFAS","version":2}} -->
+<!-- livebook:{"offset":1856,"stamp":{"token":"XCP.Hk1a-QgdBbD05Yfwn5NcsbIYcCGzFaSdni3YSeZ9jYGBzch9kAGI0UuR4iUTSIsmE7t1bBXuZy0oEoUUV3nbzOo3EufRchG5HsDC-q9BB09PdKZHUVVEQzC_","version":2}} -->
