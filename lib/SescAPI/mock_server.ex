@@ -22,7 +22,7 @@ defmodule SescAPI.MockServer do
     end
   end
 
-  defp success(conn, body \\ "") do
+  defp success(conn, body) do
     conn
     |> Plug.Conn.put_resp_content_type("application/json")
     |> Plug.Conn.send_resp(200, Jason.encode!(body))
