@@ -9,7 +9,12 @@ defmodule Sescapi.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :test,
-      deps: deps()
+      deps: deps(),
+      package: [
+        licenses: ["AGPL-3.0-or-later"],
+        links: %{},
+        description: "Read the SESC API in elixir"
+      ]
     ]
   end
 
