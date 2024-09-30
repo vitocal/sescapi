@@ -47,6 +47,9 @@ defmodule SescAPI.Unities do
     %{label: "Taubaté", value: "taubate"}
   ]
 
+  @doc """
+  List sesc unities
+  """
   def list("interior"), do: @interior
   def list("litoral"), do: @interior
   def list("capital"), do: @capital
