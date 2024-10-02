@@ -18,7 +18,7 @@ defmodule SescAPI.MockServer do
         success(conn, %{"atividade" => @data})
 
       _ ->
-        failure(conn)
+        success(conn, %{"atividade" => @data})
     end
   end
 

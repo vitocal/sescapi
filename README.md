@@ -2,7 +2,6 @@
 
 Consumes SESC activities API directly from `sescsp.org.br`
 
-
 ## Product
 
 A calendar-like interface (cal integrated) for sesc shows
