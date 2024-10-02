@@ -4,7 +4,7 @@ defmodule Sescapi.MixProject do
   def project do
     [
       app: :sescapi,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.16",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -28,12 +28,11 @@ defmodule Sescapi.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_utils, "~> 0.1.7"},
+      # {:ex_utils, "~> 0.1.7"},
       {:plug, "~> 1.0"},
       {:req, "~> 0.5.0"},
-      {:logger_json, "~> 6.0"},
-      {:kino, "~> 0.12.0"},
-      {:exsync, "~> 0.4", only: :dev},
+      # {:logger_json, "~> 6.0"},
+      # {:kino, "~> 0.12.0"},
       {:plug_cowboy, "~> 2.7.2"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
