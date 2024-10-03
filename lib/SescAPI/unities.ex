@@ -56,4 +56,9 @@ defmodule SescAPI.Unities do
   def list() do
     @capital ++ @interior
   end
+
+  def find_by_value(value) do
+    list()
+    |> Enum.find(fn unity -> unity[:value] == value end)
+  end
 end
