@@ -3,6 +3,7 @@ defmodule SescAPI.Activities do
   API module to search `sesc` shows, events and activities.
   """
   require Req
+  require Logger
 
   @fqdn "https://www.sescsp.org.br"
   @prefix "/wp-json/wp/v1"
@@ -70,13 +71,20 @@ defmodule SescAPI.Activities do
         tipo: "atividade"
       ] ++ opts
 
-    %Req.Response{status: 200, body: %{"atividade" => activities}} =
-      [
-        url: "#{@prefix}/atividades/filter",
-        params: opts
-      ]
+    url = "#{@prefix}/atividades/filter"
+
+    response =
+      [url: url, params: opts]
       |> req_config(:activities_filter)
       |> Req.request!()
+
+    Logger.info("SescAPI.Activities.filter", %{
+      url: url,
+      payload: opts,
+      response: [status: response.status]
+    })
+
+    %Req.Response{status: 200, body: %{"atividade" => activities}} = response
 
     activities
     |> map_to_atomized_keys!()

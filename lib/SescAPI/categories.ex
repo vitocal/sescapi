@@ -3,7 +3,7 @@ defmodule SescAPI.Categories do
   Categories available in sesc
   """
   @categories [
-    %{value: "", label: "Todas"},
+    %{value: "", label: "Tudo"},
     %{value: "acoes-para-cidadania", label: "Ações para Cidadania"},
     %{value: "alimentacao", label: "Alimentação"},
     %{value: "artes-visuais", label: "Artes Visuais"},
