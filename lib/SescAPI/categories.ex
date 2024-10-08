@@ -20,6 +20,7 @@ defmodule SescAPI.Categories do
     %{value: "meio-ambiente", label: "Meio Ambiente"},
     %{value: "multilinguagem", label: "Multilinguagem"},
     %{value: "musica", label: "Música"},
+    %{value: "musica-show", label: "Shows de Música"},
     %{value: "pessoas-idosas", label: "Pessoas Idosas"},
     %{value: "saude", label: "Saúde"},
     %{value: "teatro", label: "Teatro"},

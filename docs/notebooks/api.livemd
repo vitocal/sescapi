@@ -68,17 +68,7 @@ Assets.Calendar.new(events)
 ## Misc
 
 ```elixir
-import ICalendar.Event
-ev = [%ICalendar.Event{        summary: "Film with Amy and Adam",
-        dtstart: Timex.to_datetime({{2015, 12, 24}, {8, 30, 00}}),
-        dtend:   Timex.to_datetime({{2015, 12, 24}, {8, 45, 00}}),
-        description: "Let's go see Star Wars."}]
-
-ev |> ICalendar.to_ics()
-```
-
-```elixir
 tree(activities)
 ```
 
-<!-- livebook:{"offset":1856,"stamp":{"token":"XCP.AYBUhGpj_PuAoJzlzDVqV8olzOHEVJO-BHU8r0TvVOmTeOt263jU-lmqq8yKNBdvVDEIpWuTNtPKVvkOCKKFG88yfGLC_gagt9fB489131q9S0YME60rklmI","version":2}} -->
+<!-- livebook:{"offset":1543,"stamp":{"token":"XCP.NSLXwauX5srU0IwPdjpfjyFgHzh5HroAQJJw6fkEJ6OAr4VK1Q8NtHmUf3ZdcYVRiNIpRnLrj5HKTyZtOiijuhVuHpVLrL1jbcG0M_BqEB7UfAjZgLti-FA2","version":2}} -->
